@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Test NovoBot WhatsApp</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .chat-container {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .bot-message {
+            background: #e9ecef;
+            color: #333;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 25px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .status {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .examples {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .examples h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .example-btn {
+            background: #6c757d;
+            margin: 5px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Test NovoBot WhatsApp</h1>
+        
+        <div id="status" class="status">Conectando...</div>
+        
+        <div class="chat-container" id="chatContainer">
+            <!-- El chat inicia vacío, esperando el primer mensaje del usuario -->
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+        
+        <div class="examples">
+            <h3>💡 Ejemplos de mensajes para probar:</h3>
+            <button class="example-btn" onclick="sendExample('Hola, necesito un taxi')">Hola, necesito un taxi</button>
+            <button class="example-btn" onclick="sendExample('Quiero ir al centro')">Quiero ir al centro</button>
+            <button class="example-btn" onclick="sendExample('Estoy en Av. Principal 123')">Estoy en Av. Principal 123</button>
+            <button class="example-btn" onclick="sendExample('Pagaré con efectivo')">Pagaré con efectivo</button>
+            <button class="example-btn" onclick="sendExample('Sí, confirmo el viaje')">Sí, confirmo el viaje</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        const chatContainer = document.getElementById('chatContainer');
+        const messageInput = document.getElementById('messageInput');
+        const statusDiv = document.getElementById('status');
+
+        // Verificar conexión al cargar
+        window.onload = async function() {
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                if (response.ok) {
+                    statusDiv.textContent = '✅ Conectado al servidor';
+                    statusDiv.className = 'status connected';
+                } else {
+                    throw new Error('Servidor no responde');
+                }
+            } catch (error) {
+                statusDiv.textContent = '❌ Error de conexión. Asegúrate de que el servidor esté ejecutándose (npm run dev)';
+                statusDiv.className = 'status error';
+            }
+        };
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendExample(message) {
+            messageInput.value = message;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Agregar mensaje del usuario
+            addMessage(message, 'user');
+            messageInput.value = '';
+
+            try {
+                const response = await fetch(`${API_URL}/api/whatsapp/test-ai`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        phoneNumber: '+1234567890'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    addMessage(data.aiResponse, 'bot');
+                } else {
+                    addMessage('❌ Error: ' + data.error, 'bot');
+                }
+            } catch (error) {
+                addMessage('❌ Error de conexión. Verifica que el servidor esté ejecutándose.', 'bot');
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,61 @@
+{
+  "+1234567890": {
+    "frequentOrigins": [
+      {
+        "item": "1 de mayo 449",
+        "count": 15
+      },
+      {
+        "item": "pedirte",
+        "count": 12
+      },
+      {
+        "item": "mayo 449",
+        "count": 9
+      },
+      {
+        "item": "primero de mayo 449",
+        "count": 3
+      }
+    ],
+    "frequentDestinations": [
+      {
+        "item": "1 de mayo 449",
+        "count": 15
+      },
+      {
+        "item": "pedirte",
+        "count": 12
+      },
+      {
+        "item": "mayo 449",
+        "count": 9
+      },
+      {
+        "item": "primero de mayo 449",
+        "count": 3
+      }
+    ],
+    "preferredPaymentMethods": [
+      {
+        "item": "efectivo",
+        "count": 18
+      },
+      {
+        "item": "tarjeta",
+        "count": 3
+      },
+      {
+        "item": "transferencia",
+        "count": 2
+      }
+    ],
+    "frequentTimes": [
+      {
+        "item": "16:40",
+        "count": 1
+      }
+    ],
+    "useCount": 50
+  }
+}

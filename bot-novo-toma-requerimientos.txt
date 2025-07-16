@@ -1,0 +1,129 @@
+
+# OPENAI_API_KEY = "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"
+
+## Introducción
+Van a dar un numero de telefonía, en un futuro iran a twilio
+
+Este documento tiene como objetivo recopilar todos los requerimientos necesarios para el desarrollo de un **bot de atención por WhatsApp**, orientado a la **gestión automática de pedidos de taxi**, su asignación a conductores disponibles y la posterior confirmación al pasajero.
+
+El proyecto contempla la **integración directa con la app de conductores ya provista por PONT Solutions.**
+
+### Duración del desarrollo (45 dias)
+
+- **Inicio estimado:** Martes 15 de julio de 2025
+- **Entrega final:** Jueves 28 de agosto de 2025 *(45 días corridos)*
+
+### Metodología de seguimiento
+
+Durante el proceso de desarrollo, se realizarán **reuniones de avance de 30 minutos cada 15 días**, con el siguiente cronograma tentativo:
+
+- **Primera reunión de avance:** Martes 29 de julio de 2025
+- **Segunda reunión de avance:** Miércoles 14 de agosto de 2025
+- **Entrega y presentación final:** Jueves 28 de agosto de 2025
+
+### **1.  FUNCIONALIDAD BÁSICA**
+
+- ¿Qué opciones tiene que poder manejar el bot?
+    
+    Ejemplo:
+    
+    - Solicitar un taxi
+    - Cancelar viaje
+
+solicitar un viaje y cancelar, interactuar con una persona(texto), agregar si lleva exceso de equipaje o mascota
+
+
+
+- ¿El viaje se pide solo desde una dirección fija o el usuario debe escribir su ubicación?
+   El cliente lo pide en diferentes ubicaciones.
+
+    - ¿Se conecta a Google Maps para validar la dirección?
+      Si
+
+
+
+- ¿El usuario debe elegir tipo de vehículo (sedán, van, etc)?
+  una sola flota. Con posibilidad de el dia de mañana tener otra flota. Las unidades no 
+  estan preparadas para personass minusvalida ni mascota. ESTO SE DEBE PRESENTAR, se debe hacer un vehiculo 
+taxi y taxi rosa, taxi con mascota(tiene otra tarifa), darle la información al conductor que tipo es
+
+
+
+- ¿Debe mostrar precio estimado antes de confirmar? O posterior a confirmar?
+	debe mosstrarrse antess
+
+
+
+- ¿El viaje se programa (reservas) o es inmediato?
+- debe ser ambas
+
+
+
+
+### 2. DATOS NECESARIOS PARA PEDIR UN VIAJE
+
+- Nombre  del pasajero
+- Teléfono (ya lo tenés por WhatsApp)
+- Dirección de origen
+- Dirección de destino
+- ¿Desea agregar nota para el conductor?
+- ¿Método de pago? (efectivo, Transferencia, etc.)
+   Metodo de pago: pasarela pago, transferencia de pago, efectivo.
+
+
+
+
+### 3.  INTEGRACIÓN CON LA APP DE CONDUCTORES
+
+Una vez que el pasajero solicita un viaje por WhatsApp, el flujo completo será así:
+
+### ASIGNACIÓN AUTOMÁTICA
+
+- El bot **envía el pedido al sistema** de conductores (la app de conductor).
+- **Solo los conductores más cercanos** al punto de origen recibirán la solicitud.
+- El **primer conductor que acepte** será asignado al viaje automáticamente.
+
+### CONFIRMACIÓN AL PASAJERO (respuesta por WhatsApp)
+
+Una vez que un conductor acepta, el bot le envía al pasajero:
+
+✅ Nombre del conductor
+
+✅ Modelo y patente del auto
+
+✅ Tiempo estimado de llegada
+
+**¿Querés que se envíe una encuesta o calificación después del viaje?**
+
+
+
+
+
+### 4.  COMPORTAMIENTO DEL BOT
+
+- ¿El bot debe tener personalidad (humano, formal, rápido)?
+   humano, 
+- ¿Debe validar errores? (ej: si el usuario pone una dirección mal, ¿qué hace?)
+  se debe llamar a alguien de soporte
+
+
+
+
+### 5. HORARIOS Y DISPONIBILIDAD
+
+- ¿Horario de atención del bot?
+   24/7
+
+- ¿Qué pasa si no hay choferes disponibles?
+	Se hace reserva.
+
+- ¿tiene que funcionar solo en whatsapp o en otra plataforma?
+   solo whatsapp.
+
+
+
+
+cuando se le envie la respuessta de la unidad que va a llegar al domicilio.
+INFORMACION DEL VEHICULO Y CONDUCTOR. Compartir viaje.
+
+

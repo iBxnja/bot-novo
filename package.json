@@ -1,0 +1,47 @@
+{
+  "name": "novo-whatsapp-bot",
+  "version": "1.0.0",
+  "description": "Bot de WhatsApp humanizado para solicitud de taxis con IA",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "setup": "node setup-whatsapp.js",
+    "setup:intelligence": "node scripts/setup-intelligence.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:bot": "open test-bot.html",
+    "docker:build": "docker build -t novo-whatsapp-bot .",
+    "docker:run": "docker run -p 3000:3000 novo-whatsapp-bot"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "compromise": "^14.14.4",
+    "compromise-dates": "^3.7.1",
+    "compromise-numbers": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "natural": "^6.12.0",
+    "openai": "^4.20.1",
+    "uuid": "^9.0.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "taxi",
+    "ai",
+    "chatgpt",
+    "novoapp"
+  ],
+  "author": "NovoApp Team",
+  "license": "MIT"
+}
